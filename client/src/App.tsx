@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
+import history from "./history";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import "./App.css";
@@ -24,10 +25,14 @@ class App extends Component<any, any> {
     this.setState({ currTerm: term });
   };
 
+  search = (searchString: string) => {
+    history.push(`/results/${this.state.currTerm}/${searchString}`);
+  };
+
   public render() {
     return (
       <div className="App">
-        <BrowserRouter>
+        <Router history={history}>
           <Switch>
             <Route
               path="/results/:term/:courseCode"
@@ -41,11 +46,15 @@ class App extends Component<any, any> {
             />
             <Route
               render={() => (
-                <Home terms={this.state.terms} changeTerm={this.changeTerm} />
+                <Home
+                  terms={this.state.terms}
+                  changeTerm={this.changeTerm}
+                  search={this.search}
+                />
               )}
             />
           </Switch>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }
