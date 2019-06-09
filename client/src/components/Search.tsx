@@ -6,11 +6,17 @@ const { Option } = Select;
 
 class Search extends Component<any, any> {
   render() {
+    let defaultValue = this.props.terms[2] || "";
     return (
       <InputGroup compact>
-        <Select defaultValue="Zhejiang">
-          <Option value="Zhejiang">Zhejiang</Option>
-          <Option value="Jiangsu">Jiangsu</Option>
+        <Select key={this.props.terms} defaultValue={defaultValue}>
+          {this.props.terms.map((term: string) => {
+            return (
+              <Option key={term} value={term}>
+                {term}
+              </Option>
+            );
+          })}
         </Select>
         <Input
           style={{ width: "50%" }}
