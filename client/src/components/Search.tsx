@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input, Select, Icon } from "antd";
+import "./Search.css";
 
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -8,8 +9,13 @@ class Search extends Component<any, any> {
   render() {
     let defaultValue = this.props.terms[2] || "";
     return (
-      <InputGroup compact>
-        <Select key={this.props.terms} defaultValue={defaultValue}>
+      <InputGroup className="search" compact>
+        <Select
+          className="term"
+          dropdownClassName="term-dropdown"
+          key={this.props.terms}
+          defaultValue={defaultValue}
+        >
           {this.props.terms.map((term: string) => {
             return (
               <Option key={term} value={term}>
@@ -19,8 +25,9 @@ class Search extends Component<any, any> {
           })}
         </Select>
         <Input
-          style={{ width: "50%" }}
-          defaultValue="Xihu District, Hangzhou"
+          className="course-code"
+          style={{ width: "30%" }}
+          placeholder="Enter a course code"
           suffix={
             <Icon
               type="search"
