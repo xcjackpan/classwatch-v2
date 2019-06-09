@@ -13,6 +13,7 @@ class Search extends Component<any, any> {
         <Select
           className="term"
           dropdownClassName="term-dropdown"
+          size={this.props.home ? "large" : "default"}
           key={this.props.terms}
           defaultValue={defaultValue}
         >
@@ -26,8 +27,12 @@ class Search extends Component<any, any> {
         </Select>
         <Input
           className="course-code"
-          style={{ width: "30%" }}
+          style={{
+            width: this.props.home ? "30vw" : "20vw",
+            minWidth: this.props.home ? "200px" : "180px"
+          }}
           placeholder="Enter a course code"
+          size={this.props.home ? "large" : "default"}
           suffix={
             <Icon
               type="search"

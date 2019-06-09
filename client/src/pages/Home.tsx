@@ -7,7 +7,11 @@ class Home extends Component<any, any> {
     return (
       <div className="home-page">
         <div className="title">ClassWatch.</div>
-        <Search terms={this.props.terms} changeTerm={this.props.changeTerm} />
+        <Search
+          terms={this.props.terms}
+          changeTerm={this.props.changeTerm}
+          home
+        />
       </div>
     );
   }

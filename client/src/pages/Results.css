@@ -1,0 +1,14 @@
+.results-page .top-bar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.65);
+  height: 60px;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.results-page .top-bar .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+}

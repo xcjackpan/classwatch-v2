@@ -29,7 +29,16 @@ class App extends Component<any, any> {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/results/:term/:courseCode" component={Results} />
+            <Route
+              path="/results/:term/:courseCode"
+              render={props => (
+                <Results
+                  terms={this.state.terms}
+                  changeTerm={this.changeTerm}
+                  {...props}
+                />
+              )}
+            />
             <Route
               render={() => (
                 <Home terms={this.state.terms} changeTerm={this.changeTerm} />
