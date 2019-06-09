@@ -38,9 +38,10 @@ class App extends Component<any, any> {
               path="/results/:term/:courseCode"
               render={props => (
                 <Results
+                  {...props}
                   terms={this.state.terms}
                   changeTerm={this.changeTerm}
-                  {...props}
+                  search={this.search}
                 />
               )}
             />

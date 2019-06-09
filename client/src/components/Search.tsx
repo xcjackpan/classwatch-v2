@@ -76,7 +76,7 @@ class Search extends Component<any, any> {
           }
           onPressEnter={() => this.props.search(this.state.searchString)}
           onChange={e => {
-            this.setState({ searchString: e.target.value.toUpperCase() });
+            this.setState({ searchString: e.target.value.toLowerCase() });
           }}
         />
       </InputGroup>

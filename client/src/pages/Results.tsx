@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import "./Results.css";
 
@@ -29,8 +30,14 @@ class Results extends Component<any, any> {
     return (
       <div className="results-page">
         <div className="top-bar">
-          <div className="title">ClassWatch.</div>
-          <Search terms={this.props.terms} changeTerm={this.props.changeTerm} />
+          <Link className="title" to="/">
+            ClassWatch.
+          </Link>
+          <Search
+            terms={this.props.terms}
+            changeTerm={this.props.changeTerm}
+            search={this.props.search}
+          />
         </div>
       </div>
     );
