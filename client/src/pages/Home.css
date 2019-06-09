@@ -1,0 +1,13 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.home-page .title {
+  color: white;
+  font-size: 100px;
+  margin-bottom: 50px;
+}
