@@ -5,9 +5,40 @@ import "./Search.css";
 const InputGroup = Input.Group;
 const { Option } = Select;
 
+interface IProps {
+  terms: [string];
+  changeTerm(term: string): void;
+  search(searchString: string): void;
+}
+
 class Search extends Component<any, any> {
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      searchString: ""
+    };
+  }
+
+  parseTerm(term: string): string {
+    let season: string = "";
+    let year: string;
+    switch (term[3]) {
+      case "1":
+        season = "Winter";
+        break;
+      case "5":
+        season = "Spring";
+        break;
+      case "9":
+        season = "Fall";
+        break;
+    }
+    year = term.substr(1, 2);
+    return `${season} 20${year}`;
+  }
+
   render() {
-    let defaultValue = this.props.terms[2] || "";
+    let defaultValue: string = this.props.terms[2] || "";
     return (
       <InputGroup className="search" compact>
         <Select
@@ -15,11 +46,14 @@ class Search extends Component<any, any> {
           dropdownClassName="term-dropdown"
           key={this.props.terms}
           defaultValue={defaultValue}
+          onChange={(e: string) => {
+            this.props.changeTerm(e);
+          }}
         >
           {this.props.terms.map((term: string) => {
             return (
               <Option key={term} value={term}>
-                {term}
+                {this.parseTerm(term)}
               </Option>
             );
           })}
@@ -32,10 +66,13 @@ class Search extends Component<any, any> {
             <Icon
               type="search"
               style={{ color: "rgba(0,0,0,.45)" }}
-              onClick={() => console.log("search")}
+              onClick={() => this.props.search(this.state.searchString)}
             />
           }
-          onPressEnter={() => console.log("search")}
+          onPressEnter={() => this.props.search(this.state.searchString)}
+          onChange={e => {
+            this.setState({ searchString: e.target.value.toUpperCase() });
+          }}
         />
       </InputGroup>
     );
