@@ -4,6 +4,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import history from "./history";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
+import { Modal } from "antd";
 import "./App.css";
 
 class App extends Component<any, any> {
@@ -11,8 +12,7 @@ class App extends Component<any, any> {
     super(props);
     this.state = {
       terms: [],
-      currTerm: "",
-      help: false
+      currTerm: ""
     };
   }
 
@@ -31,20 +31,22 @@ class App extends Component<any, any> {
   };
 
   toggleHelp = () => {
-    console.log("A");
-    this.setState({ help: !this.state.help });
+    Modal.info({
+      title: "Help!",
+      content: (
+        <div>
+          <p>Some informative help message!</p>
+        </div>
+      ),
+      onOk() {},
+      maskClosable: true
+    });
   };
 
   public render() {
     return (
       <div className="App">
         <Router history={history}>
-          <div
-            className="help"
-            style={{ display: this.state.help ? "block" : "none" }}
-          >
-            <p>AAA</p>
-          </div>
           <Switch>
             <Route
               path="/results/:term/:courseCode"
