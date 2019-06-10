@@ -1,11 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
+import ResultsTable from "../components/ResultsTable";
 import "./Results.css";
 import axios from "axios";
+import _ from "lodash";
 
 class Results extends Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.fetchResults();
+  }
+
   componentDidUpdate() {
+    this.fetchResults();
+  }
+
+  shouldComponentUpdate(nextProps: any): boolean {
+    return !_.isEqual(this.props.match.params, nextProps.match.params);
+  }
+
+  fetchResults = () => {
     const {
       term,
       courseCode
@@ -16,9 +35,9 @@ class Results extends Component<any, any> {
       .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
       .then(res => {
         console.log(res.data);
+        this.setState({ results: res.data });
       });
-    // make request
-  }
+  };
 
   getCourse = (
     courseCode: string
@@ -32,6 +51,7 @@ class Results extends Component<any, any> {
   };
 
   render() {
+    console.log(this.state);
     return (
       <div className="results-page">
         <div className="top-bar">
@@ -44,6 +64,7 @@ class Results extends Component<any, any> {
             search={this.props.search}
           />
         </div>
+        <ResultsTable results={this.state.results} />
       </div>
     );
   }
