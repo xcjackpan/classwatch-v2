@@ -11,7 +11,8 @@ class App extends Component<any, any> {
     super(props);
     this.state = {
       terms: [],
-      currTerm: ""
+      currTerm: "",
+      help: false
     };
   }
 
@@ -29,10 +30,21 @@ class App extends Component<any, any> {
     history.push(`/results/${this.state.currTerm}/${searchString}`);
   };
 
+  toggleHelp = () => {
+    console.log("A");
+    this.setState({ help: !this.state.help });
+  };
+
   public render() {
     return (
       <div className="App">
         <Router history={history}>
+          <div
+            className="help"
+            style={{ display: this.state.help ? "block" : "none" }}
+          >
+            <p>AAA</p>
+          </div>
           <Switch>
             <Route
               path="/results/:term/:courseCode"
@@ -42,6 +54,7 @@ class App extends Component<any, any> {
                   terms={this.state.terms}
                   changeTerm={this.changeTerm}
                   search={this.search}
+                  help={this.toggleHelp}
                 />
               )}
             />

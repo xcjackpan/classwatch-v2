@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import Search from "../components/Search";
 import "./Home.css";
 
-interface IProps {
-  terms: [string];
-  changeTerm(term: string): void;
-  search(searchString: string): void;
-}
-
 class Home extends Component<any, any> {
   render() {
     return (
