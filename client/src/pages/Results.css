@@ -26,3 +26,16 @@
 .results-page .top-bar .tree-icon:hover {
   opacity: 1;
 }
+
+.results-page .top-bar .search {
+  margin-right: auto;
+}
+
+.results-page .top-bar #help-icon {
+  stroke-width: 2;
+}
+
+.results-page .top-bar #help-icon:hover {
+  stroke-width: 2.5;
+  cursor: pointer;
+}

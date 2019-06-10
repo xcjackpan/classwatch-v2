@@ -2,13 +2,23 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import _ from "lodash";
+import { HelpCircle } from "react-feather";
 import Search from "../components/Search";
 import ResultsTable from "../components/ResultsTable";
 import tree from "../assets/tree.png";
 import "./Results.css";
 
+interface IProps {
+  changeTerm: (term: string) => void;
+  help: () => void;
+  history?: any;
+  location?: any;
+  match?: any;
+  search: (searchString: string) => void;
+}
+
 class Results extends Component<any, any> {
-  constructor(props: any) {
+  constructor(props: IProps) {
     super(props);
     this.state = {};
   }
@@ -21,7 +31,7 @@ class Results extends Component<any, any> {
     this.fetchResults();
   }
 
-  shouldComponentUpdate(nextProps: any): boolean {
+  shouldComponentUpdate(nextProps: IProps): boolean {
     return !_.isEqual(this.props, nextProps);
   }
 
@@ -35,7 +45,6 @@ class Results extends Component<any, any> {
     axios
       .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
       .then(res => {
-        console.log(res.data);
         this.setState({ results: res.data });
       });
   };
@@ -52,7 +61,6 @@ class Results extends Component<any, any> {
   };
 
   render() {
-    console.log(this.state);
     return (
       <div className="results-page">
         <div className="top-bar">
@@ -60,10 +68,12 @@ class Results extends Component<any, any> {
             <img className="tree-icon" src={tree} />
           </Link>
           <Search
+            className="search"
             terms={this.props.terms}
             changeTerm={this.props.changeTerm}
             search={this.props.search}
           />
+          <HelpCircle id="help-icon" onClick={this.props.help} />
         </div>
         <ResultsTable results={this.state.results} />
       </div>

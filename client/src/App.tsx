@@ -4,6 +4,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import history from "./history";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
+import { Modal } from "antd";
 import "./App.css";
 
 class App extends Component<any, any> {
@@ -29,6 +30,19 @@ class App extends Component<any, any> {
     history.push(`/results/${this.state.currTerm}/${searchString}`);
   };
 
+  toggleHelp = () => {
+    Modal.info({
+      title: "Help!",
+      content: (
+        <div>
+          <p>Some informative help message!</p>
+        </div>
+      ),
+      onOk() {},
+      maskClosable: true
+    });
+  };
+
   public render() {
     return (
       <div className="App">
@@ -42,6 +56,7 @@ class App extends Component<any, any> {
                   terms={this.state.terms}
                   changeTerm={this.changeTerm}
                   search={this.search}
+                  help={this.toggleHelp}
                 />
               )}
             />
