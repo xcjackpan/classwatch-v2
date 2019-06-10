@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Search from "../components/Search";
-import ResultsTable from "../components/ResultsTable";
-import "./Results.css";
 import axios from "axios";
 import _ from "lodash";
+import Search from "../components/Search";
+import ResultsTable from "../components/ResultsTable";
+import tree from "../assets/tree.png";
+import "./Results.css";
 
 class Results extends Component<any, any> {
   constructor(props: any) {
@@ -21,7 +22,7 @@ class Results extends Component<any, any> {
   }
 
   shouldComponentUpdate(nextProps: any): boolean {
-    return !_.isEqual(this.props.match.params, nextProps.match.params);
+    return !_.isEqual(this.props, nextProps);
   }
 
   fetchResults = () => {
@@ -56,7 +57,7 @@ class Results extends Component<any, any> {
       <div className="results-page">
         <div className="top-bar">
           <Link className="title" to="/">
-            ClassWatch.
+            <img className="tree-icon" src={tree} />
           </Link>
           <Search
             terms={this.props.terms}
