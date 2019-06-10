@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import "./Results.css";
+import axios from "axios";
 
 class Results extends Component<any, any> {
-  componentDidMount() {
+  componentDidUpdate() {
     const {
       term,
       courseCode
     }: { term: number; courseCode: string } = this.props.match.params;
-    console.log(term);
-    console.log(courseCode);
+    const { subject, courseNumber } = this.getCourse(courseCode);
 
+    axios
+      .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
+      .then(res => {
+        console.log(res.data);
+      });
     // make request
   }
 

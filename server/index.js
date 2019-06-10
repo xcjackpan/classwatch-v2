@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const scrapeData = require('./scraper');
+const { scrapeData } = require('./scraper.js');
 
 const app = express();
 const port = 3001;
@@ -48,7 +48,13 @@ app.get('/terms', (req, res) => {
 
 app.get('/search/:term/:subject/:courseNumber', (req, res) => {
   const { term, subject, courseNumber } = req.params;
-  res.send(scrapeData(term, subject, courseNumber));
+  scrapeData(term, subject.toUpperCase(), courseNumber)
+    .then((results) => {
+      res.send(results);
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
 });
 
 app.listen(port);
