@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import { Input, Select, Icon } from "antd";
 import "./Search.css";
+import { ISearchProps } from "../types";
 
 const InputGroup = Input.Group;
 const { Option } = Select;
 
-interface IProps {
-  terms: string[];
-  changeTerm(term: string): void;
-  search(searchString: string): void;
-}
-
 class Search extends Component<any, any> {
-  constructor(props: IProps) {
+  constructor(props: ISearchProps) {
     super(props);
     this.state = {
       searchString: ""

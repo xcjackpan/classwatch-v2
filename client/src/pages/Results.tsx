@@ -7,29 +7,10 @@ import Search from "../components/Search";
 import ResultsTable from "../components/ResultsTable";
 import tree from "../assets/tree.png";
 import "./Results.css";
-
-interface IProps {
-  changeTerm: (term: string) => void;
-  help: () => void;
-  history?: any;
-  location?: any;
-  match?: any;
-  search: (searchString: string) => void;
-}
-
-interface IParsedResults {
-  section: string;
-  reserve: string;
-  reserve_enrol_cap: number;
-  reserve_enrol_total: number;
-  instructor: string;
-  time: string;
-  days: string;
-  date: string;
-}
+import { IResultsProps, IParsedResults } from "../types";
 
 class Results extends Component<any, any> {
-  constructor(props: IProps) {
+  constructor(props: IResultsProps) {
     super(props);
     this.state = {};
   }
@@ -38,7 +19,7 @@ class Results extends Component<any, any> {
     this.fetchResults();
   }
 
-  componentWillReceiveProps(nextProps: IProps) {
+  componentWillReceiveProps(nextProps: IResultsProps) {
     if (!_.isEqual(this.props, nextProps)) {
       this.fetchResults();
     }
