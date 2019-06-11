@@ -6,7 +6,7 @@ const InputGroup = Input.Group;
 const { Option } = Select;
 
 interface IProps {
-  terms: [string];
+  terms: string[];
   changeTerm(term: string): void;
   search(searchString: string): void;
 }

@@ -17,6 +17,17 @@ interface IProps {
   search: (searchString: string) => void;
 }
 
+interface IParsedResults {
+  section: string;
+  reserve: string;
+  reserve_enrol_cap: number;
+  reserve_enrol_total: number;
+  instructor: string;
+  time: string;
+  days: string;
+  date: string;
+}
+
 class Results extends Component<any, any> {
   constructor(props: IProps) {
     super(props);
@@ -61,8 +72,8 @@ class Results extends Component<any, any> {
     };
   };
 
-  parse_results = (results: [any]): any[] => {
-    let newResults: any[] = [];
+  parse_results = (results: any[]): IParsedResults[] => {
+    let newResults: IParsedResults[] = [];
     if (!results) {
       return newResults;
     }
