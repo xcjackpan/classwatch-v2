@@ -27,12 +27,10 @@ class Results extends Component<any, any> {
     this.fetchResults();
   }
 
-  componentDidUpdate() {
-    this.fetchResults();
-  }
-
-  shouldComponentUpdate(nextProps: IProps): boolean {
-    return !_.isEqual(this.props, nextProps);
+  componentWillReceiveProps(nextProps: IProps) {
+    if (!_.isEqual(this.props, nextProps)) {
+      this.fetchResults();
+    }
   }
 
   fetchResults = () => {
