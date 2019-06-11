@@ -66,11 +66,11 @@ class Results extends Component<any, any> {
     if (!results) {
       return newResults;
     }
-    for (let i = 0; i < results.length; i++) {
+    for (let i: number = 0; i < results.length; i++) {
       if (!results[i].reserve && results[i + 1] && results[i + 1].reserve) {
-        var reserve_enrol_total = 0;
-        var reserve_enrol_cap = 0;
-        let temp_index = i + 1;
+        let reserve_enrol_total: number = 0;
+        let reserve_enrol_cap: number = 0;
+        let temp_index: number = i + 1;
         while (results[temp_index] && results[temp_index].reserve) {
           reserve_enrol_cap += results[temp_index].reserve_enrol_cap;
           reserve_enrol_total += results[temp_index].reserve_enrol_total;
