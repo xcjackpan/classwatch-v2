@@ -26,12 +26,10 @@ class Results extends Component<any, any> {
     this.fetchResults();
   }
 
-  componentDidUpdate() {
-    this.fetchResults();
-  }
-
-  shouldComponentUpdate(nextProps: IProps): boolean {
-    return !_.isEqual(this.props, nextProps);
+  componentWillReceiveProps(nextProps: IProps) {
+    if (!_.isEqual(this.props, nextProps)) {
+      this.fetchResults();
+    }
   }
 
   fetchResults = () => {
@@ -41,22 +39,14 @@ class Results extends Component<any, any> {
     }: { term: number; courseCode: string } = this.props.match.params;
     const { subject, courseNumber } = this.getCourse(courseCode);
 
-    if (
-      this.state.course &&
-      this.state.course !== `${subject.toUpperCase()}${courseNumber}`
-    ) {
-      axios
-        .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
-        .then(res => {
-          this.setState(
-            {
-              results: res.data,
-              course: `${subject.toUpperCase()}${courseNumber}`
-            },
-            () => this.forceUpdate()
-          );
+    axios
+      .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
+      .then(res => {
+        this.setState({
+          results: res.data,
+          course: `${subject.toUpperCase()}${courseNumber}`
         });
-    }
+      });
   };
 
   getCourse = (
