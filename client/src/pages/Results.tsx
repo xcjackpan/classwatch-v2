@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import _ from "lodash";
 import { HelpCircle } from "react-feather";
 import Search from "../components/Search";
 import ResultsTable from "../components/ResultsTable";
+import tree from "../assets/tree.png";
 import "./Results.css";
-import axios from "axios";
-import _ from "lodash";
 
 interface IProps {
   changeTerm: (term: string) => void;
@@ -101,7 +102,7 @@ class Results extends Component<any, any> {
       <div className="results-page">
         <div className="top-bar">
           <Link className="title" to="/">
-            ClassWatch.
+            <img className="tree-icon" src={tree} />
           </Link>
           <Search
             className="search"

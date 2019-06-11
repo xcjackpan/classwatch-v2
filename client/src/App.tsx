@@ -5,6 +5,7 @@ import history from "./history";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import { Modal } from "antd";
+import HelpModal from "./components/HelpModal";
 import "./App.css";
 
 class App extends Component<any, any> {
@@ -32,12 +33,9 @@ class App extends Component<any, any> {
 
   toggleHelp = () => {
     Modal.info({
+      icon: "question-circle",
       title: "Help!",
-      content: (
-        <div>
-          <p>Some informative help message!</p>
-        </div>
-      ),
+      content: <HelpModal />,
       onOk() {},
       maskClosable: true
     });
