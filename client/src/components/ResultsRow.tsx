@@ -4,10 +4,9 @@ class ResultsRow extends Component<any, any> {
   render() {
     const rowData = this.props.row;
     if (rowData.reserve && rowData.date) {
-      console.log("date");
       return (
         <tr className="reserveRow">
-          <td>
+          <td className="checkbox-container">
             <label className="container">
               <input
                 className="checkbox"
@@ -27,15 +26,14 @@ class ResultsRow extends Component<any, any> {
           <td>{rowData.time}</td>
           <td>{rowData.location}</td>
           <td>
-            {rowData.reserve_enrol_total} / {rowData.reserve_enrol_cap}
+            {rowData.reserveEnrolTotal} / {rowData.reserveEnrolCap}
           </td>
         </tr>
       );
     } else if (rowData.reserve) {
-      //console.log('reserve');
       return (
         <tr className="reserveRow">
-          <td>
+          <td className="checkbox-container">
             <label className="container">
               <input
                 className="checkbox"
@@ -50,11 +48,11 @@ class ResultsRow extends Component<any, any> {
             {rowData.reserve}
           </td>
           <td>
-            {rowData.reserve_enrol_total} / {rowData.reserve_enrol_cap}
+            {rowData.reserveEnrolTotal} / {rowData.reserveEnrolCap}
           </td>
         </tr>
       );
-    } else if (!rowData.enrol_cap) {
+    } else if (!rowData.enrolCap) {
       return (
         <tr className="reserveRow">
           <td />
@@ -72,7 +70,7 @@ class ResultsRow extends Component<any, any> {
     } else {
       return (
         <tr>
-          <td>
+          <td className="checkbox-container">
             <label className="container">
               <input
                 className="checkbox"
@@ -92,7 +90,7 @@ class ResultsRow extends Component<any, any> {
           <td>{rowData.time}</td>
           <td>{rowData.location}</td>
           <td>
-            {rowData.enrol_total} / {rowData.enrol_cap}
+            {rowData.enrolTotal} / {rowData.enrolCap}
           </td>
         </tr>
       );

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Input, Select, Icon } from "antd";
 import "./Search.css";
 import { ISearchProps } from "../types";
+import { parseTerm } from "../utils";
 
 const InputGroup = Input.Group;
 const { Option } = Select;
@@ -12,24 +13,6 @@ class Search extends Component<any, any> {
     this.state = {
       searchString: ""
     };
-  }
-
-  parseTerm(term: string): string {
-    let season: string = "";
-    let year: string;
-    switch (term[3]) {
-      case "1":
-        season = "Winter";
-        break;
-      case "5":
-        season = "Spring";
-        break;
-      case "9":
-        season = "Fall";
-        break;
-    }
-    year = term.substr(1, 2);
-    return `${season} 20${year}`;
   }
 
   render() {
@@ -49,7 +32,7 @@ class Search extends Component<any, any> {
           {this.props.terms.map((term: string) => {
             return (
               <Option key={term} value={term}>
-                {this.parseTerm(term)}
+                {parseTerm(term)}
               </Option>
             );
           })}

@@ -127,7 +127,7 @@ const parseData = async ($, term, subject, courseNumber) => {
       const days = timeAndDays.substring(11).match(/([A-Z][a-z]*)/g);
       const date = timeAndDays.match(/\d\d\/\d\d/);
       return {
-        course_code: `${subject} ${courseNumber}`,
+        courseCode: `${subject} ${courseNumber}`,
         courseTitle,
         section,
         type,
@@ -165,7 +165,7 @@ const scrapeData = async (term, subject, courseNumber) => {
   if (/sorry, but your query had no matches/i.test(body)) {
     return [
       {
-        course_code: `${subject} ${courseNumber}`,
+        courseCode: `${subject} ${courseNumber}`,
         term,
       },
     ];

@@ -104,7 +104,10 @@ class Results extends Component<any, any> {
           />
           <HelpCircle id="help-icon" onClick={this.props.help} />
         </div>
-        <ResultsTable results={this.parse_results(this.state.results)} />
+        <ResultsTable
+          results={this.parse_results(this.state.results)}
+          term={this.props.match.params.term}
+        />
       </div>
     );
   }
