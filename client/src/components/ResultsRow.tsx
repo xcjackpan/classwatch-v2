@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Checkbox } from "antd";
 
 class ResultsRow extends Component<any, any> {
   render() {
@@ -7,15 +8,13 @@ class ResultsRow extends Component<any, any> {
       return (
         <tr className="reserveRow">
           <td className="checkbox-container">
-            <label className="container">
-              <input
-                className="checkbox"
-                type="checkbox"
-                name="sections[]"
-                value={rowData.section}
-              />
-              <span className="checkmark" />
-            </label>
+            <Checkbox
+              className="checkbox"
+              value={rowData.section}
+              onChange={e => {
+                this.props.update(rowData.section, e.target.checked);
+              }}
+            />
           </td>
           <td className="reserveCell">{rowData.reserve}</td>
           <td>{rowData.instructor}</td>
@@ -34,15 +33,13 @@ class ResultsRow extends Component<any, any> {
       return (
         <tr className="reserveRow">
           <td className="checkbox-container">
-            <label className="container">
-              <input
-                className="checkbox"
-                type="checkbox"
-                name="sections[]"
-                value={rowData.section}
-              />
-              <span className="checkmark" />
-            </label>
+            <Checkbox
+              className="checkbox"
+              value={rowData.section}
+              onChange={e => {
+                this.props.update(rowData.section, e.target.checked);
+              }}
+            />
           </td>
           <td colSpan={5} className="reserveCell">
             {rowData.reserve}
@@ -71,15 +68,13 @@ class ResultsRow extends Component<any, any> {
       return (
         <tr>
           <td className="checkbox-container">
-            <label className="container">
-              <input
-                className="checkbox"
-                type="checkbox"
-                name="sections[]"
-                value={rowData.section}
-              />
-              <span className="checkmark" />
-            </label>
+            <Checkbox
+              className="checkbox"
+              value={rowData.section}
+              onChange={e => {
+                this.props.update(rowData.section, e.target.checked);
+              }}
+            />
           </td>
           <td>{rowData.section}</td>
           <td>{rowData.instructor}</td>

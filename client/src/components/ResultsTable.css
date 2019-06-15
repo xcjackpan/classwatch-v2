@@ -33,6 +33,8 @@
   margin-bottom: 3%;
   text-align: left;
   font-size: 18px;
+  height: 20px;
+  line-height: 2;
 }
 
 #results-container tr {
@@ -48,4 +50,19 @@
 #results-container .checkbox-container {
   text-align: center;
   width: 8vw;
+}
+
+.ant-checkbox {
+  transform: scale(1.2);
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #a9a9a9 !important;
+  border-color: #a9a9a9 !important;
+}
+
+#watch {
+  margin-top: 5%;
+  /*background-color: #77dd77;
+  border-color: #77dd77;*/
 }

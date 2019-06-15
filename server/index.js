@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const { scrapeData } = require('./scraper.js');
 
 const app = express();
 const port = 3001;
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -55,6 +57,10 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
     .catch(() => {
       res.sendStatus(500);
     });
+});
+
+app.post('/watch', (req, res) => {
+  console.log(req.body.data);
 });
 
 app.listen(port);

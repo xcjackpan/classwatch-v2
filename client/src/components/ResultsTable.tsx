@@ -1,12 +1,39 @@
 import React, { Component } from "react";
-// import { Table } from "antd";
+import { Button } from "antd";
 import ResultsRow from "./ResultsRow";
 import "./ResultsTable.css";
 import { IParsedResults } from "../types";
 import { parseTerm } from "../utils";
+import { IResultsTableProps } from "../types";
+import axios from "axios";
 
 class ResultsTable extends Component<any, any> {
+  constructor(props: IResultsTableProps) {
+    super(props);
+    this.state = {
+      checked: []
+    };
+  }
+
+  private submit() {
+    //Modal first
+    axios.post("http://localhost:3001/watch/", {
+      data: this.state.checked
+    });
+  }
+
+  public update(section: string, add: boolean): void {
+    if (add) {
+      this.setState({ checked: [...this.state.checked, section] });
+    } else {
+      this.setState({
+        checked: this.state.checked.filter((elem: string) => elem !== section)
+      });
+    }
+  }
+
   render() {
+    console.log(this.state.checked);
     let courseCode: string = "Nothing found :(";
     let courseTitle: string = "Nothing found :(";
     if (this.props.results[0]) {
@@ -35,10 +62,23 @@ class ResultsTable extends Component<any, any> {
           </thead>
           <tbody>
             {this.props.results.map((elem: IParsedResults) => (
-              <ResultsRow row={elem} />
+              <ResultsRow
+                key={elem.section}
+                row={elem}
+                update={this.update.bind(this)}
+              />
             ))}
           </tbody>
         </table>
+        <Button
+          id="watch"
+          type="primary"
+          size="large"
+          shape="round"
+          onClick={this.submit.bind(this)}
+        >
+          Submit
+        </Button>
       </div>
     );
   }

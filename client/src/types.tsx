@@ -18,6 +18,11 @@ export interface IResultsProps {
   search: (searchString: string) => void;
 }
 
+export interface IResultsTableProps {
+  results: IParsedResults[];
+  term: string;
+}
+
 export interface ISearchProps {
   terms: string[];
   changeTerm(term: string): void;
