@@ -2,7 +2,18 @@
 
 .App {
   text-align: center;
-  background-image: url(assets/winter.jpg);
   background-size: cover;
   height: 100vh;
+}
+
+.App.fall {
+  background-image: url(assets/fall.jpg);
+}
+
+.App.winter {
+  background-image: url(assets/winter.jpg);
+}
+
+.App.spring {
+  background-image: url(assets/spring.jpg);
 }

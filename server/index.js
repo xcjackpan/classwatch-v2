@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { scrapeData } = require('./scraper.js');
+const { WatchedCourses, UnverifiedCourses } = require('./db/db.js');
 
 const app = express();
 const port = 3001;
@@ -59,8 +60,34 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
     });
 });
 
+
+// mongo
+
 app.post('/watch', (req, res) => {
   console.log(req.body.data);
+  const { course, email } = req.body.data;
+  const unverifiedCourse = new UnverifiedCourses({
+    course_code: 'course code',
+    sections: [
+      {
+        section_number: 'number',
+        emails: [
+          {
+            email: 'email',
+            hash: 'hash',
+          },
+        ],
+      },
+    ],
+  });
+  unverifiedCourse.save((err) => {
+    if (err) res.sendStatus(500);
+    else res.sendStatus(201);
+  });
+});
+
+app.post('/verify/:hash', (req, res) => {
+  console.log('verify');
 });
 
 app.listen(port);

@@ -15,14 +15,16 @@ class ResultsTable extends Component<any, any> {
     };
   }
 
-  private submit() {
+  private submit = () => {
     //Modal first
+    console.log("submit")
     axios.post("http://localhost:3001/watch/", {
       data: this.state.checked
     });
   }
 
-  public update(section: string, add: boolean): void {
+  public update = (section: string, add: boolean): void => {
+    console.log("update")
     if (add) {
       this.setState({ checked: [...this.state.checked, section] });
     } else {
@@ -65,7 +67,7 @@ class ResultsTable extends Component<any, any> {
               <ResultsRow
                 key={elem.section}
                 row={elem}
-                update={this.update.bind(this)}
+                update={this.update}
               />
             ))}
           </tbody>
@@ -75,7 +77,7 @@ class ResultsTable extends Component<any, any> {
           type="primary"
           size="large"
           shape="round"
-          onClick={this.submit.bind(this)}
+          onClick={this.submit}
         >
           Submit
         </Button>

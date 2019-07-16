@@ -24,6 +24,7 @@ class App extends Component<any, any> {
   }
 
   changeTerm = (term: String) => {
+    console.log(this.state.terms)
     this.setState({ currTerm: term });
   };
 
@@ -41,9 +42,20 @@ class App extends Component<any, any> {
     });
   };
 
+  getSeason = (term: string) => {
+    switch (term ? term.charAt(3) : "") {
+      case "1":
+        return "winter";
+      case "5":
+        return "spring";
+      default:
+        return "fall";
+    }
+  }
+
   public render() {
     return (
-      <div className="App">
+      <div className={`App ${this.getSeason(this.state.currTerm)}`}>
         <Router history={history}>
           <Switch>
             <Route
