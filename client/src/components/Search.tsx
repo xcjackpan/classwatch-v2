@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Input, Select, Icon } from "antd";
+import { Input, Select } from "antd";
+import { TextInput } from "./TextInput";
 import "./Search.css";
 import { ISearchProps } from "../types";
 import { parseTerm } from "../utils";
@@ -37,25 +38,18 @@ class Search extends Component<any, any> {
             );
           })}
         </Select>
-        <Input
-          className="course-code"
-          style={{
-            width: this.props.home ? "30vw" : "20vw",
-            minWidth: this.props.home ? "200px" : "180px"
-          }}
-          placeholder="Enter a course code"
-          size={this.props.home ? "large" : "default"}
-          suffix={
-            <Icon
-              type="search"
-              style={{ color: "rgba(0,0,0,.45)" }}
-              onClick={() => this.props.search(this.state.searchString)}
-            />
-          }
-          onPressEnter={() => this.props.search(this.state.searchString)}
-          onChange={e => {
-            this.setState({ searchString: e.target.value.toLowerCase() });
-          }}
+        <TextInput           
+            style={{
+              width: this.props.home ? "30vw" : "20vw",
+              minWidth: this.props.home ? "200px" : "180px"
+            }}
+            placeholder="Enter a course code"
+            suffix="search"
+            size={this.props.home ? "large" : "default"}
+            onPressEnter={() => this.props.search(this.state.searchString)}
+            onChange={(e: any) => {
+              this.setState({ searchString: e.target.value.toLowerCase() });
+            }}
         />
       </InputGroup>
     );

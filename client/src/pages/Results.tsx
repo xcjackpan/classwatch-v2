@@ -16,22 +16,21 @@ class Results extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.fetchResults();
+    this.fetchResults(undefined);
   }
 
   componentWillReceiveProps(nextProps: IResultsProps) {
     if (!_.isEqual(this.props, nextProps)) {
-      this.fetchResults();
+      this.fetchResults(nextProps);
     }
   }
 
-  fetchResults = () => {
+  fetchResults = (props: IResultsProps | undefined) => {
     const {
       term,
       courseCode
-    }: { term: number; courseCode: string } = this.props.match.params;
+    }: { term: number; courseCode: string } = props ? props.match.params : this.props.match.params;
     const { subject, courseNumber } = this.getCourse(courseCode);
-
     axios
       .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
       .then(res => {
@@ -94,7 +93,7 @@ class Results extends Component<any, any> {
       <div className="results-page">
         <div className="top-bar">
           <Link className="title" to="/">
-            <img className="tree-icon" src={tree} />
+            <img className="tree-icon" src={tree} alt={"Tree"}/>
           </Link>
           <Search
             className="search"
