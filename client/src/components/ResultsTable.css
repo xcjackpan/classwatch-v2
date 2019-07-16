@@ -71,3 +71,13 @@
   /*background-color: #77dd77;
   border-color: #77dd77;*/
 }
+
+.ant-input-affix-wrapper .ant-input:not(:first-child) {
+  padding-left: 40px !important;
+}
+
+.error-message {
+  color: red;
+  padding: 5%;
+  font-style: italic;
+}

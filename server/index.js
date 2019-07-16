@@ -88,6 +88,7 @@ app.post('/watch', (req, res) => {
 
 app.post('/verify/:hash', (req, res) => {
   console.log('verify');
+  res.sendStatus(200);
 });
 
 app.listen(port);

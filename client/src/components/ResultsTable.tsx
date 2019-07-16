@@ -1,26 +1,44 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+import { Button, Modal, Input, Icon } from "antd";
 import ResultsRow from "./ResultsRow";
 import "./ResultsTable.css";
 import { IParsedResults } from "../types";
 import { parseTerm } from "../utils";
 import { IResultsTableProps } from "../types";
+import { TextInput } from "./TextInput";
 import axios from "axios";
 
 class ResultsTable extends Component<any, any> {
   constructor(props: IResultsTableProps) {
     super(props);
     this.state = {
-      checked: []
+      checked: [],
+      email: "",
+      submitDialogVisible: false,
+      emailError: false,
     };
   }
 
   private submit = () => {
-    //Modal first
-    console.log("submit")
-    axios.post("http://localhost:3001/watch/", {
-      data: this.state.checked
-    });
+    if (this.validEmail(this.state.email)) {
+      axios.post("http://localhost:3001/watch/", {
+        courses: this.state.checked,
+        email: this.state.email,
+      }).then(() => {
+        this.toggleSubmitDialog();
+      });
+    } else {
+      this.setState({emailError: true});
+    }
+  }
+
+  private toggleSubmitDialog = () => {
+    this.setState({submitDialogVisible: !this.state.submitDialogVisible});
+  }
+  
+  private validEmail(email: string): boolean {
+    let emailReg: RegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailReg.test(email);
   }
 
   public update = (section: string, add: boolean): void => {
@@ -35,7 +53,6 @@ class ResultsTable extends Component<any, any> {
   }
 
   render() {
-    console.log(this.state.checked);
     let courseCode: string = "Nothing found :(";
     let courseTitle: string = "Nothing found :(";
     if (this.props.results[0]) {
@@ -77,10 +94,51 @@ class ResultsTable extends Component<any, any> {
           type="primary"
           size="large"
           shape="round"
-          onClick={this.submit}
+          onClick={this.toggleSubmitDialog}
         >
           Submit
         </Button>
+        <Modal
+          bodyStyle={{
+            width: "40vw",
+          }}
+          maskClosable={true}
+          visible={this.state.submitDialogVisible}
+          title="How should we notify you?"
+          onOk={this.submit}
+          onCancel={this.toggleSubmitDialog}
+          footer={[
+            <Button key="back" onClick={this.toggleSubmitDialog}>
+              Cancel
+            </Button>,
+            <Button key="submit" type="primary" onClick={this.submit}>
+              Submit
+            </Button>,
+          ]}
+        >
+        <span>
+          <TextInput           
+              style={{
+                width: this.props.home ? "30vw" : "20vw",
+                minWidth: this.props.home ? "200px" : "180px"
+              }}
+              placeholder="Enter your email"
+              prefix="mail"
+              size="default"
+              onPressEnter={() => {
+                this.props.search(this.state.searchString)}
+              }
+              onChange={(e: any) => {
+                if (this.state.emailError) {
+                  this.setState({emailError: false});
+                }
+                this.setState({ email: e.target.value.toLowerCase() });
+              }}
+          />
+          <p style={{display: this.state.emailError ? "inline" : "none"}}
+             className="error-message">Invalid email format!</p>
+        </span>
+        </Modal>
       </div>
     );
   }
