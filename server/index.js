@@ -60,7 +60,9 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
 });
 
 app.post('/watch', (req, res) => {
-  console.log(req.body.data);
+  console.log(req.body.courses);
+  console.log(req.body.email);
+  res.sendStatus(200);
 });
 
 app.listen(port);
