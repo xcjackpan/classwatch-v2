@@ -1,7 +1,7 @@
 #results-container {
   background-color: rgba(255, 255, 255, 0.65);
   padding: 24px;
-  width: 50vw;
+  max-width: 80vw;
   border-radius: 4px;
 }
 
@@ -43,8 +43,13 @@
   font-size: 16px;
 }
 
+#results-container th,td {
+  padding: 2px 15px;
+}
+
 .reserveCell {
   text-align: left;
+  padding-left: 30px !important;
 }
 
 #results-container .checkbox-container {

@@ -19,7 +19,7 @@ class ResultsTable extends Component<any, any> {
     };
   }
 
-  private submit() {
+  private submit = () => {
     if (this.validEmail(this.state.email)) {
       axios.post("http://localhost:3001/watch/", {
         courses: this.state.checked,
@@ -32,7 +32,7 @@ class ResultsTable extends Component<any, any> {
     }
   }
 
-  private toggleSubmitDialog() {
+  private toggleSubmitDialog = () => {
     this.setState({submitDialogVisible: !this.state.submitDialogVisible});
   }
   
@@ -41,7 +41,8 @@ class ResultsTable extends Component<any, any> {
     return emailReg.test(email);
   }
 
-  public update(section: string, add: boolean): void {
+  public update = (section: string, add: boolean): void => {
+    console.log("update")
     if (add) {
       this.setState({ checked: [...this.state.checked, section] });
     } else {
@@ -83,7 +84,7 @@ class ResultsTable extends Component<any, any> {
               <ResultsRow
                 key={elem.section}
                 row={elem}
-                update={this.update.bind(this)}
+                update={this.update}
               />
             ))}
           </tbody>
@@ -93,7 +94,7 @@ class ResultsTable extends Component<any, any> {
           type="primary"
           size="large"
           shape="round"
-          onClick={this.toggleSubmitDialog.bind(this)}
+          onClick={this.toggleSubmitDialog}
         >
           Submit
         </Button>
@@ -104,12 +105,49 @@ class ResultsTable extends Component<any, any> {
           maskClosable={true}
           visible={this.state.submitDialogVisible}
           title="How should we notify you?"
+<<<<<<< HEAD
           onOk={()=>{this.submit()}}
           onCancel={this.toggleSubmitDialog.bind(this)}
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
           emailError={this.state.emailError}
          />
+=======
+          onOk={this.submit}
+          onCancel={this.toggleSubmitDialog}
+          footer={[
+            <Button key="back" onClick={this.toggleSubmitDialog}>
+              Cancel
+            </Button>,
+            <Button key="submit" type="primary" onClick={this.submit}>
+              Submit
+            </Button>,
+          ]}
+        >
+        <span>
+          <TextInput           
+              style={{
+                width: this.props.home ? "30vw" : "20vw",
+                minWidth: this.props.home ? "200px" : "180px"
+              }}
+              placeholder="Enter your email"
+              prefix="mail"
+              size="default"
+              onPressEnter={() => {
+                this.props.search(this.state.searchString)}
+              }
+              onChange={(e: any) => {
+                if (this.state.emailError) {
+                  this.setState({emailError: false});
+                }
+                this.setState({ email: e.target.value.toLowerCase() });
+              }}
+          />
+          <p style={{display: this.state.emailError ? "inline" : "none"}}
+             className="error-message">Invalid email format!</p>
+        </span>
+        </Modal>
+>>>>>>> ca8325fc868a2f2842d5a17566102bca8084889e
       </div>
     );
   }
