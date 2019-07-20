@@ -92,13 +92,13 @@ class ResultsTable extends Component<any, any> {
           </tbody>
         </table>
         <Button
-          id="watch"
+          id="watchButton"
           type="primary"
           size="large"
           shape="round"
           onClick={this.toggleSubmitDialog}
         >
-          Submit
+          Watch
         </Button>
         <SubmitModal
           bodyStyle={{

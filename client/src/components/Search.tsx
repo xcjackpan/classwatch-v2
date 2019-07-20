@@ -38,7 +38,8 @@ class Search extends Component<any, any> {
             );
           })}
         </Select>
-        <TextInput           
+        <TextInput  
+            className="course-code"         
             style={{
               width: this.props.home ? "30vw" : "20vw",
               minWidth: this.props.home ? "200px" : "180px"

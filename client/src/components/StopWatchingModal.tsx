@@ -15,10 +15,10 @@ class StopWatchingModal extends Component<any, any> {
         onOk={this.props.onOk}
         onCancel={this.props.onCancel}
         footer={[
-          <Button key="back" onClick={this.props.onCancel}>
+          <Button key="back" onClick={this.props.onCancel} shape="round">
             Cancel
           </Button>,
-          <Button key="submit" type="primary" onClick={this.props.onOk}>
+          <Button key="submit" type="primary" onClick={this.props.onOk} shape="round">
             Submit
           </Button>,
         ]}

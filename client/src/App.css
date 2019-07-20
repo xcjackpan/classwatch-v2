@@ -17,3 +17,18 @@
 .App.spring {
   background-image: url(assets/spring.jpg);
 }
+
+.ant-btn.ant-btn-primary {
+  background-color: #52c41a;
+  border-color: #52c41a;
+}
+
+.ant-btn.ant-btn.ant-btn-primary:hover {
+  background-color: #73d13d;
+  border-color: #73d13d;
+}
+
+.ant-btn:hover:not(.ant-btn-primary) {
+  border-color: #73d13d;
+  color: #73d13d;
+}

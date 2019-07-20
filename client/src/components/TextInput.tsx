@@ -4,6 +4,7 @@ import { Input, Icon } from "antd";
 type sizeTypes = "small" | "large" | "default" | undefined;
 
 interface ITextInputProps {
+  className?: string;
   style?: any;
   placeholder?: string;
   size?: sizeTypes;
@@ -16,7 +17,7 @@ interface ITextInputProps {
 export function TextInput (props: ITextInputProps): JSX.Element {
   return (
     <Input
-      className="submission-input"
+      className={`submission-input ${props.className}`}
       style={props.style}
       placeholder={props.placeholder}
       size={props.size}
