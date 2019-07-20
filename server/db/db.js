@@ -10,7 +10,7 @@ const WatchedSchema = mongoose.Schema(
     sections: [
       {
         section_number: String,
-        emails: [String],
+        emails: [{ email: String, hash: String }],
       },
     ],
   },
@@ -20,17 +20,9 @@ const WatchedSchema = mongoose.Schema(
 const UnverifiedSchema = mongoose.Schema(
   {
     course_code: String,
-    sections: [
-      {
-        section_number: String,
-        emails: [
-          {
-            email: String,
-            hash: String,
-          },
-        ],
-      },
-    ],
+    section_number: String,
+    email: String,
+    hash: String,
   },
   { collection: 'unverified' },
 );

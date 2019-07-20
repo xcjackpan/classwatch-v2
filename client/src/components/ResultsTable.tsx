@@ -22,7 +22,8 @@ class ResultsTable extends Component<any, any> {
   private submit = () => {
     if (this.validEmail(this.state.email)) {
       axios.post("http://localhost:3001/watch/", {
-        courses: this.state.checked,
+        course: "course",
+        sections: this.state.checked,
         email: this.state.email,
       }).then(() => {
         this.toggleSubmitDialog();
@@ -43,6 +44,7 @@ class ResultsTable extends Component<any, any> {
 
   public update = (section: string, add: boolean): void => {
     console.log("update")
+    console.log(section)
     if (add) {
       this.setState({ checked: [...this.state.checked, section] });
     } else {

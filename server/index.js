@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const { scrapeData } = require('./scraper.js');
 const { WatchedCourses, UnverifiedCourses } = require('./db/db.js');
 
@@ -64,30 +65,70 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
 // mongo
 
 app.post('/watch', (req, res) => {
-  console.log(req.body.data);
-  const { course, email } = req.body.data;
-  const unverifiedCourse = new UnverifiedCourses({
-    course_code: 'course code',
-    sections: [
-      {
-        section_number: 'number',
-        emails: [
-          {
-            email: 'email',
-            hash: 'hash',
-          },
-        ],
-      },
-    ],
-  });
-  unverifiedCourse.save((err) => {
+  console.log(req.body);
+  const { course, sections, email } = req.body;
+  const unverified = sections.map(section => new UnverifiedCourses({
+    course_code: course,
+    section_number: section,
+    email,
+    hash: crypto.randomBytes(20).toString('hex'),
+  }));
+  // Send emails here
+  UnverifiedCourses.insertMany(unverified, (err) => {
     if (err) res.sendStatus(500);
     else res.sendStatus(201);
   });
 });
 
-app.post('/verify/:hash', (req, res) => {
-  console.log('verify');
+app.get('/verify/:hash', (req, res) => {
+  console.log('HIT');
+  UnverifiedCourses.findOne({ hash: req.params.hash }, (unverifiedFindErr, doc) => {
+    // check if the course exists
+    WatchedCourses.findOne({ course_code: doc.course_code },
+      async (watchedCoursesFindErr, foundCourse) => {
+      // if it doesn't exist, create new doc for that course
+        if (!foundCourse) {
+          const createCoursePromise = new Promise((resolve, reject) => {
+            WatchedCourses.create({
+              course_code: doc.course_code,
+            }, (err) => {
+              if (err) reject();
+              resolve();
+            });
+          });
+          await createCoursePromise;
+        }
+        // check if the section number exists
+        await WatchedCourses.aggregate([
+          { $match: { course_code: doc.course_code } },
+          { $unwind: '$section' },
+          { $match: { 'section.section_number': doc.section_number } },
+        ], async (watchedCoursesAggregateErr, foundSection) => {
+          // if it doesn't exist, push the section number into the array
+          console.log(foundSection);
+          if (!foundSection || !foundSection.length) {
+            await WatchedCourses.updateOne(
+              { course_code: doc.course_code },
+              { $push: { sections: { section_number: doc.section_number, emails: [] } } },
+            );
+          }
+          // add the email to the array
+          console.log(doc.section_number);
+          WatchedCourses.updateOne(
+            { course_code: doc.course_code },
+            { $push: { 'sections.$[section].emails': { email: doc.email, hash: doc.hash } } },
+            { arrayFilters: [{ 'section.section_number': doc.section_number }] },
+          );
+          UnverifiedCourses.deleteOne({ hash: doc.hash }, (err, succ) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(succ);
+            }
+          });
+        });
+      });
+  });
   res.sendStatus(200);
 });
 
