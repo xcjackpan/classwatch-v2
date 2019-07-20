@@ -1,21 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
+import { Button } from "antd";
+import { HelpCircle } from "react-feather";
 import Search from "../components/Search";
 import "./Home.css";
 
-class Home extends Component<any, any> {
-  render() {
-    return (
-      <div className="home-page">
-        <div className="title">ClassWatch.</div>
-        <Search
-          home
-          terms={this.props.terms}
-          changeTerm={this.props.changeTerm}
-          search={this.props.search}
-        />
+interface IHomeProps {
+  stopWatching(): void;
+  help(): void;
+  search(searchString: string): void;
+  terms: string[];
+  changeTerm(term: string): void;
+}
+
+export function Home (props: IHomeProps): JSX.Element {
+  return (
+    <div className="home-page">
+      <div className="top-bar">
+        <Button type="primary" id="stop-watching-button" 
+                onClick={props.stopWatching}>Stop watching a course</Button>
+        <HelpCircle id="help-icon" onClick={props.help} />
       </div>
-    );
-  }
+      <div className="title">ClassWatch.</div>
+      <Search
+        home
+        terms={props.terms}
+        changeTerm={props.changeTerm}
+        search={props.search}
+      />
+    </div>
+  );
 }
 
 export default Home;

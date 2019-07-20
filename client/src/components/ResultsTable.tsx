@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Button, Modal, Input, Icon } from "antd";
+import { Button } from "antd";
 import ResultsRow from "./ResultsRow";
 import "./ResultsTable.css";
 import { IParsedResults } from "../types";
 import { parseTerm } from "../utils";
 import { IResultsTableProps } from "../types";
-import { TextInput } from "./TextInput";
+import SubmitModal from "./SubmitClassesModal";
 import axios from "axios";
 
 class ResultsTable extends Component<any, any> {
@@ -100,13 +100,21 @@ class ResultsTable extends Component<any, any> {
         >
           Submit
         </Button>
-        <Modal
+        <SubmitModal
           bodyStyle={{
             width: "40vw",
           }}
           maskClosable={true}
           visible={this.state.submitDialogVisible}
           title="How should we notify you?"
+<<<<<<< HEAD
+          onOk={()=>{this.submit()}}
+          onCancel={this.toggleSubmitDialog.bind(this)}
+          onChange={(e: string) => {this.setState({ email: e }); }}
+          setEmailError={()=>{ this.setState({emailError: false}); }}
+          emailError={this.state.emailError}
+         />
+=======
           onOk={this.submit}
           onCancel={this.toggleSubmitDialog}
           footer={[
@@ -141,6 +149,7 @@ class ResultsTable extends Component<any, any> {
              className="error-message">Invalid email format!</p>
         </span>
         </Modal>
+>>>>>>> ca8325fc868a2f2842d5a17566102bca8084889e
       </div>
     );
   }

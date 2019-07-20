@@ -14,89 +14,34 @@ interface ITextInputProps {
 }
 
 export function TextInput (props: ITextInputProps): JSX.Element {
-  if (props.prefix && props.suffix) {
-    return (
-      <Input
-        className="submission-input"
-        style={props.style}
-        placeholder={props.placeholder}
-        size={props.size}
-        prefix={
-          <Icon
-            type={ props.prefix }
-            style={{ color: "rgba(0,0,0,.45)" }}
-          />
-        }
-        suffix={
-          <Icon
-            type={ props.suffix }
-            style={{ color: "rgba(0,0,0,.45)" }}
-          />
-        }
-        onPressEnter={() => {
-          props.onPressEnter();
-        }}
-        onChange={(e) => {
-          props.onChange(e);
-        }}
-      />
-    );
-  } else if (props.prefix) {
-    return (
-      <Input
-        className="submission-input"
-        style={props.style}
-        placeholder={props.placeholder}
-        size={props.size}
-        prefix={
-          <Icon
-            type={ props.prefix }
-            style={{ color: "rgba(0,0,0,.45)" }}
-          />
-        }
-        onPressEnter={() => {
-          props.onPressEnter();
-        }}
-        onChange={(e) => {
-          props.onChange(e);
-        }}
-      />
-    );
-  } else if (props.suffix) {
-    return (
-      <Input
-        className="submission-input"
-        style={props.style}
-        placeholder={props.placeholder}
-        size={props.size}
-        suffix={
-          <Icon
-            type={ props.suffix }
-            style={{ color: "rgba(0,0,0,.45)" }}
-          />
-        }
-        onPressEnter={() => {
-          props.onPressEnter();
-        }}
-        onChange={(e) => {
-          props.onChange(e);
-        }}
-      />
-    );
-  } else {
-    return (
-      <Input
-        className="submission-input"
-        style={props.style}
-        placeholder={props.placeholder}
-        size={props.size}
-        onPressEnter={() => {
-          props.onPressEnter();
-        }}
-        onChange={(e) => {
-          props.onChange(e);
-        }}
-      />
-    );
-  }
+  return (
+    <Input
+      className="submission-input"
+      style={props.style}
+      placeholder={props.placeholder}
+      size={props.size}
+      prefix={
+        props.prefix ?
+        <Icon
+          type={ props.prefix }
+          style={{ color: "rgba(0,0,0,.45)" }}
+        /> :
+        null
+      }
+      suffix={
+        props.suffix ?
+        <Icon
+          type={ props.suffix }
+          style={{ color: "rgba(0,0,0,.45)" }}
+        /> :
+        null
+      }
+      onPressEnter={() => {
+        props.onPressEnter();
+      }}
+      onChange={(e) => {
+        props.onChange(e);
+      }}
+    />
+  );
 }

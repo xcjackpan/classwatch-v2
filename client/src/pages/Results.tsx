@@ -7,6 +7,7 @@ import Search from "../components/Search";
 import ResultsTable from "../components/ResultsTable";
 import tree from "../assets/tree.png";
 import "./Results.css";
+import { Button } from "antd";
 import { IResultsProps, IParsedResults } from "../types";
 
 class Results extends Component<any, any> {
@@ -92,7 +93,7 @@ class Results extends Component<any, any> {
     return (
       <div className="results-page">
         <div className="top-bar">
-          <Link className="title" to="/">
+          <Link className="tree-wrapper" to="/">
             <img className="tree-icon" src={tree} alt={"Tree"}/>
           </Link>
           <Search
@@ -101,6 +102,8 @@ class Results extends Component<any, any> {
             changeTerm={this.props.changeTerm}
             search={this.props.search}
           />
+          <Button type="primary" id="stop-watching-button" 
+                  onClick={this.props.stopWatching}>Stop watching a course</Button>
           <HelpCircle id="help-icon" onClick={this.props.help} />
         </div>
         <ResultsTable
