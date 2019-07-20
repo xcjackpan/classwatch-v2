@@ -107,49 +107,12 @@ class ResultsTable extends Component<any, any> {
           maskClosable={true}
           visible={this.state.submitDialogVisible}
           title="How should we notify you?"
-<<<<<<< HEAD
-          onOk={()=>{this.submit()}}
-          onCancel={this.toggleSubmitDialog.bind(this)}
+          onOk={this.submit}
+          onCancel={this.toggleSubmitDialog}
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
           emailError={this.state.emailError}
-         />
-=======
-          onOk={this.submit}
-          onCancel={this.toggleSubmitDialog}
-          footer={[
-            <Button key="back" onClick={this.toggleSubmitDialog}>
-              Cancel
-            </Button>,
-            <Button key="submit" type="primary" onClick={this.submit}>
-              Submit
-            </Button>,
-          ]}
-        >
-        <span>
-          <TextInput           
-              style={{
-                width: this.props.home ? "30vw" : "20vw",
-                minWidth: this.props.home ? "200px" : "180px"
-              }}
-              placeholder="Enter your email"
-              prefix="mail"
-              size="default"
-              onPressEnter={() => {
-                this.props.search(this.state.searchString)}
-              }
-              onChange={(e: any) => {
-                if (this.state.emailError) {
-                  this.setState({emailError: false});
-                }
-                this.setState({ email: e.target.value.toLowerCase() });
-              }}
-          />
-          <p style={{display: this.state.emailError ? "inline" : "none"}}
-             className="error-message">Invalid email format!</p>
-        </span>
-        </Modal>
->>>>>>> ca8325fc868a2f2842d5a17566102bca8084889e
+        />
       </div>
     );
   }
