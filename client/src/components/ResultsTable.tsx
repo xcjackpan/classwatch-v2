@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Button, Modal, Input, Icon } from "antd";
+import { Button } from "antd";
 import ResultsRow from "./ResultsRow";
 import "./ResultsTable.css";
 import { IParsedResults } from "../types";
 import { parseTerm } from "../utils";
 import { IResultsTableProps } from "../types";
-import { TextInput } from "./TextInput";
+import SubmitModal from "./SubmitClassesModal";
 import axios from "axios";
 
 class ResultsTable extends Component<any, any> {
@@ -97,7 +97,7 @@ class ResultsTable extends Component<any, any> {
         >
           Submit
         </Button>
-        <Modal
+        <SubmitModal
           bodyStyle={{
             width: "40vw",
           }}
@@ -106,38 +106,10 @@ class ResultsTable extends Component<any, any> {
           title="How should we notify you?"
           onOk={()=>{this.submit()}}
           onCancel={this.toggleSubmitDialog.bind(this)}
-          footer={[
-            <Button key="back" onClick={this.toggleSubmitDialog.bind(this)}>
-              Cancel
-            </Button>,
-            <Button key="submit" type="primary" onClick={()=>{this.submit()}}>
-              Submit
-            </Button>,
-          ]}
-        >
-        <span>
-          <TextInput           
-              style={{
-                width: this.props.home ? "30vw" : "20vw",
-                minWidth: this.props.home ? "200px" : "180px"
-              }}
-              placeholder="Enter your email"
-              prefix="mail"
-              size="default"
-              onPressEnter={() => {
-                this.props.search(this.state.searchString)}
-              }
-              onChange={(e: any) => {
-                if (this.state.emailError) {
-                  this.setState({emailError: false});
-                }
-                this.setState({ email: e.target.value.toLowerCase() });
-              }}
-          />
-          <p style={{display: this.state.emailError ? "inline" : "none"}}
-             className="error-message">Invalid email format!</p>
-        </span>
-        </Modal>
+          onChange={(e: string) => {this.setState({ email: e }); }}
+          setEmailError={()=>{ this.setState({emailError: false}); }}
+          emailError={this.state.emailError}
+         />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Results from "./pages/Results";
 import { Modal } from "antd";
 import HelpModal from "./components/HelpModal";
+import StopWatchingModal from "./components/StopWatchingModal";
 import "./App.css";
 
 class App extends Component<any, any> {
@@ -13,7 +14,9 @@ class App extends Component<any, any> {
     super(props);
     this.state = {
       terms: [],
-      currTerm: ""
+      currTerm: "",
+      stopWatchingVisible: false,
+      stopWatchingHash: "",
     };
   }
 
@@ -36,14 +39,37 @@ class App extends Component<any, any> {
       icon: "question-circle",
       title: "Help!",
       content: <HelpModal />,
+      width: "40vw",
       onOk() {},
       maskClosable: true
     });
   };
 
+  toggleStopWatching = () => {
+    this.setState({ stopWatchingVisible: !this.state.stopWatchingVisible })
+  }
+
+  submitStopWatching = () => {
+    //
+    return;
+  }
+
   public render() {
     return (
       <div className="App">
+        <StopWatchingModal
+          bodyStyle={{
+            width: "40vw",
+          }}
+          maskClosable={true}
+          visible={this.state.stopWatchingVisible}
+          title="How should we notify you?"
+          onOk={()=>{this.submitStopWatching()}}
+          onCancel={this.toggleStopWatching.bind(this)}
+          onChange={(e: any) => {
+            this.setState({ stopWatchingHash: e });
+          }}
+        />
         <Router history={history}>
           <Switch>
             <Route
@@ -55,6 +81,7 @@ class App extends Component<any, any> {
                   changeTerm={this.changeTerm}
                   search={this.search}
                   help={this.toggleHelp}
+                  stopWatching={this.toggleStopWatching}
                 />
               )}
             />
@@ -64,6 +91,8 @@ class App extends Component<any, any> {
                   terms={this.state.terms}
                   changeTerm={this.changeTerm}
                   search={this.search}
+                  help={this.toggleHelp}
+                  stopWatching={this.toggleStopWatching}
                 />
               )}
             />
