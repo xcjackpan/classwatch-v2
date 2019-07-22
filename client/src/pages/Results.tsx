@@ -39,6 +39,12 @@ class Results extends Component<any, any> {
           results: res.data,
           course: `${subject.toUpperCase()}${courseNumber}`
         });
+      })
+      .catch((err) => {
+        this.setState({
+          results: null,
+          course: "",
+        });
       });
   };
 

@@ -33,7 +33,7 @@ class StopWatchingModal extends Component<any, any> {
               size="default"
               onPressEnter={this.props.onOk}
               onChange={(e: any) => {
-                this.props.onChange(e.target.value.toLowerCase());
+                this.props.onChange(e.target.value);
               }}
           />
         </span>

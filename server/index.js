@@ -133,15 +133,19 @@ app.post('/watch', (req, res) => {
   });
 });
 
-app.patch('/remove', (req, res) => {
-  const { removalCode } = req.body;
+app.delete('/remove', (req, res) => {
+  const { removalCode } = req.params;
   const {
-    courseCode, sectionNumber, hash, email,
+    courseCode, sectionNumber, email,
   } = decode(removalCode);
   WatchedCourses.updateOne(
     { course_code: courseCode },
-    { $pull: { 'sections.$[section].emails': { email, hash } } },
+    { $pull: { 'sections.$[section].emails': { email, removalCode } } },
     { arrayFilters: [{ 'section.section_number': sectionNumber }] },
+    (err, succ) => {
+      if (err) console.log(err);
+      console.log(succ);
+    },
   );
   res.sendStatus(200);
 });

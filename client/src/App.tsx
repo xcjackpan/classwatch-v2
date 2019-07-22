@@ -27,7 +27,6 @@ class App extends Component<any, any> {
   }
 
   changeTerm = (term: String) => {
-    console.log(this.state.terms)
     this.setState({ currTerm: term });
   };
 
@@ -47,12 +46,15 @@ class App extends Component<any, any> {
   };
 
   toggleStopWatching = () => {
-    this.setState({ stopWatchingVisible: !this.state.stopWatchingVisible })
+    this.setState({ stopWatchingVisible: !this.state.stopWatchingVisible, stopWatchingHash: "" })
   }
 
   submitStopWatching = () => {
-    //
-    return;
+    axios
+      .delete(`http://localhost:3001/remove${this.state.stopWatchingHash}`)
+      .then(res => {
+        this.toggleStopWatching();
+      })
   }
 
   getSeason = (term: string) => {

@@ -19,10 +19,10 @@ class ResultsTable extends Component<any, any> {
     };
   }
 
-  private submit = (courseCode: string) => {
+  private submit = () => {
     if (this.validEmail(this.state.email)) {
       axios.post("http://localhost:3001/watch/", {
-        course: courseCode,
+        course: this.props.results[0].courseCode,
         sections: this.state.checked,
         email: this.state.email,
       }).then(() => {
@@ -34,7 +34,7 @@ class ResultsTable extends Component<any, any> {
   }
 
   private toggleSubmitDialog = () => {
-    this.setState({submitDialogVisible: !this.state.submitDialogVisible});
+    this.setState({submitDialogVisible: !this.state.submitDialogVisible, email: ""});
   }
   
   private validEmail(email: string): boolean {
@@ -43,8 +43,6 @@ class ResultsTable extends Component<any, any> {
   }
 
   public update = (section: string, add: boolean): void => {
-    console.log("update")
-    console.log(section)
     if (add) {
       this.setState({ checked: [...this.state.checked, section] });
     } else {
@@ -91,6 +89,7 @@ class ResultsTable extends Component<any, any> {
             ))}
           </tbody>
         </table>
+        {this.props.results[0] ?
         <Button
           id="watchButton"
           type="primary"
@@ -100,6 +99,7 @@ class ResultsTable extends Component<any, any> {
         >
           Watch
         </Button>
+        : <div/>}
         <SubmitModal
           bodyStyle={{
             width: "40vw",
@@ -107,7 +107,7 @@ class ResultsTable extends Component<any, any> {
           maskClosable={true}
           visible={this.state.submitDialogVisible}
           title="How should we notify you?"
-          onOk={() => this.submit(courseCode)}
+          onOk={this.submit}
           onCancel={this.toggleSubmitDialog}
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
