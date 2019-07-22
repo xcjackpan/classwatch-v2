@@ -5,6 +5,7 @@
 .search .term .ant-select-selection {
   border-top-left-radius: 16px !important;
   border-bottom-left-radius: 16px !important;
+  min-width: 120px;
 }
 
 .search .term .ant-select-selection-selected-value {

@@ -174,4 +174,4 @@ const scrapeData = async (term, subject, courseNumber) => {
   return parseData($, term, subject, courseNumber);
 };
 
-exports.scrapeData = scrapeData;
+exports.scraper = scrapeData;

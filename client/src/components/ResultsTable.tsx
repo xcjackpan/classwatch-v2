@@ -19,10 +19,10 @@ class ResultsTable extends Component<any, any> {
     };
   }
 
-  private submit = () => {
+  private submit = (courseCode: string) => {
     if (this.validEmail(this.state.email)) {
       axios.post("http://localhost:3001/watch/", {
-        course: "course",
+        course: courseCode,
         sections: this.state.checked,
         email: this.state.email,
       }).then(() => {
@@ -107,7 +107,7 @@ class ResultsTable extends Component<any, any> {
           maskClosable={true}
           visible={this.state.submitDialogVisible}
           title="How should we notify you?"
-          onOk={this.submit}
+          onOk={() => this.submit(courseCode)}
           onCancel={this.toggleSubmitDialog}
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
