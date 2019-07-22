@@ -96,8 +96,8 @@ app.post('/watch', (req, res) => {
   });
 });
 
-app.patch('/remove', (req, res) => {
-  const { removalCode } = req.body;
+app.delete('/remove', (req, res) => {
+  const { removalCode } = req.params;
   const {
     courseCode, sectionNumber, email,
   } = decode(removalCode);

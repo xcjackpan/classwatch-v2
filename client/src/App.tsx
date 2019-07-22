@@ -51,7 +51,7 @@ class App extends Component<any, any> {
 
   submitStopWatching = () => {
     axios
-      .patch(`http://localhost:3001/remove`, {removalCode: this.state.stopWatchingHash})
+      .delete(`http://localhost:3001/remove${this.state.stopWatchingHash}`)
       .then(res => {
         this.toggleStopWatching();
       })
