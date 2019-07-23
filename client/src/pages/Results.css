@@ -19,30 +19,20 @@
 }
 
 .tree-wrapper {
-  margin-right: auto;
+  margin-right: 28px;
 }
 
 .results-page .top-bar .tree-icon {
   height: 28px;
-  opacity: 0.85;
+  transition: all 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .results-page .top-bar .tree-icon:hover {
-  opacity: 1;
-  color: #52c41a;
+  opacity: 0.7;
 }
 
 .results-page .top-bar .search {
   margin-right: auto;
-}
-
-.results-page .top-bar #help-icon {
-  stroke-width: 2;
-}
-
-.results-page .top-bar #help-icon:hover {
-  stroke-width: 2.5;
-  cursor: pointer;
 }
 
 .results-page .top-bar #stop-watching-button {

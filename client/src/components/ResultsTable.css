@@ -62,12 +62,12 @@
 }
 
 .ant-checkbox:hover {
-  border-color: #73d13d;
+  border-color: #52c41a;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #73d13d !important;
-  border-color: #73d13d !important;
+  background-color: #52c41a !important;
+  border-color: #52c41a !important;
 }
 
 #watchButton {

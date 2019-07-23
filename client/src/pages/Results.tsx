@@ -109,7 +109,7 @@ class Results extends Component<any, any> {
             search={this.props.search}
           />
           <Button type="primary" id="stop-watching-button" shape="round"
-                  onClick={this.props.stopWatching}>Stop watching a course</Button>
+                  onClick={this.props.stopWatching}>Unwatch a course</Button>
           <HelpCircle id="help-icon" onClick={this.props.help} />
         </div>
         <ResultsTable
