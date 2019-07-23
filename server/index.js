@@ -48,10 +48,6 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
 const getTerms = () => {
   let terms = [];
   const date = new Date();
@@ -101,17 +97,17 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
 });
 
 function sendVerification(email, name, sections, hash) {
-  console.log(email);
-  const link = `${URL}/verify/${hash}`;
+  const link = `http://${URL}/verify/${hash}`;
   const mailOptions = {
     from: 'postmaster@uwclasswatch.com',
     to: email,
     subject: 'Verify your choice!',
-    html: `<p style="font-size: 16px">You have requested to watch the following sections of ${name}: ${sections}</p>
-        <p style="font-size: 15px">Please <a href=${link}>click on the link</a> to verify your email.</p>
-        <p><a href='http://uwclasswatch.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your feedback to uw.classwatch.notif@gmail.com.</p>`,
+    html: `<p style="font-size: 16px">You (or someone with your email) has requested to watch ${name}: ${sections}</p>
+           <p style="font-size: 15px">Please <a href='${link}'>click on the link</a> to verify your email.</p>
+           <p><a href='http://uwclasswatch.com/'>ClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, 
+              which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run.</p>`,
   };
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       console.log(error);
     }
@@ -211,12 +207,13 @@ const sendNotificationEmail = (email, course, section, hash, enrolTotal, enrolCa
     to: email,
     subject: `Space available in ${course} ${section}!`,
     html: `<p style="font-size: 16px">The enrolment capacity for this class is currently ${enrolTotal} / ${enrolCap}.\n
-      To stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com'>UWClasswatch</a>.</p>
-      <p style="font-size: 15px">Your removal code for this class is: ${hash}</p>
-      <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run and continuously being updated so please send us your feedback to uw.classwatch.notif@gmail.com.</p>`,
+           To stop receiving notifications about this class, enter your removal code at <a href='http://www.uwclasswatch.com'>UWClasswatch</a>.</p>
+           <p style="font-size: 15px">Your removal code for this class is: ${hash}</p>
+           <p><a href='http://uwclasswatch.com/'>UWClassWatch</a> works by scraping UWaterloo's publicly available enrolment numbers, 
+              which are updated every half hour between 8:00am and 8:00pm. This application is entirely student-run.</p>`,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       console.log(error);
     }

@@ -83,6 +83,7 @@ class App extends Component<any, any> {
           onChange={(e: any) => {
             this.setState({ stopWatchingHash: e });
           }}
+          value={this.state.value}
         />
         <Router history={history}>
           <Switch>

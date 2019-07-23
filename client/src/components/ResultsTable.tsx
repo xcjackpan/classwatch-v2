@@ -34,7 +34,7 @@ class ResultsTable extends Component<any, any> {
   }
 
   private toggleSubmitDialog = () => {
-    this.setState({submitDialogVisible: !this.state.submitDialogVisible, email: ""});
+    this.setState({submitDialogVisible: !this.state.submitDialogVisible, emailError: false});
   }
   
   private validEmail(email: string): boolean {
@@ -112,6 +112,7 @@ class ResultsTable extends Component<any, any> {
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
           emailError={this.state.emailError}
+          value={this.state.email}
         />
       </div>
     );
