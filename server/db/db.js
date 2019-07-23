@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const { mongoAuth } = require('./mongo_auth');
 
-mongoose.connect('mongodb://localhost/uwclasswatch', { useNewUrlParser: true });
+const mongoUri = `mongodb+srv://${mongoAuth.user}:${mongoAuth.password}@uwclasswatch-glujo.mongodb.net/test?retryWrites=true&w=majority`;
+mongoose.connect(mongoUri, { useNewUrlParser: true });
 // mongoose.set('debug', true);
 const db = mongoose.connection;
 
