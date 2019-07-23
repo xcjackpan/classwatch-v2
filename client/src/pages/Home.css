@@ -37,11 +37,12 @@
 
 .top-bar #help-icon {
   stroke-width: 2;
-  margin-left: 2%;
+  margin-left: 28px;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .top-bar #help-icon:hover {
-  stroke-width: 2.5;
+  color: #52c41a;
   cursor: pointer;
 }
 

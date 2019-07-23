@@ -17,7 +17,7 @@ export function Home (props: IHomeProps): JSX.Element {
     <div className="home-page">
       <div className="top-bar">
         <Button type="primary" id="stop-watching-button" shape="round"
-                onClick={props.stopWatching}>Stop watching a course</Button>
+                onClick={props.stopWatching}>Unwatch a course</Button>
         <HelpCircle id="help-icon" onClick={props.help} />
       </div>
       <div className="title">ClassWatch.</div>
