@@ -33,7 +33,7 @@ class Results extends Component<any, any> {
     }: { term: number; courseCode: string } = props ? props.match.params : this.props.match.params;
     const { subject, courseNumber } = this.getCourse(courseCode);
     axios
-      .get(`http://localhost:3001/search/${term}/${subject}/${courseNumber}`)
+      .get(`/search/${term}/${subject}/${courseNumber}`)
       .then(res => {
         this.setState({
           results: res.data,

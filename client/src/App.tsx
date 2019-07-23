@@ -21,7 +21,7 @@ class App extends Component<any, any> {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3001/terms/").then(res => {
+    axios.get("/terms/").then(res => {
       this.setState({ terms: res.data, currTerm: res.data[2] });
     });
   }
@@ -51,7 +51,7 @@ class App extends Component<any, any> {
 
   submitStopWatching = () => {
     axios
-      .delete(`http://localhost:3001/remove${this.state.stopWatchingHash}`)
+      .delete(`/remove/${this.state.stopWatchingHash}`)
       .then(res => {
         this.toggleStopWatching();
       })

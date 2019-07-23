@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
@@ -19,7 +20,7 @@ const mailgunOptions = {
 const mgtransport = mailgunTransport(mailgunOptions);
 const transporter = nodemailer.createTransport(mgtransport);
 
-const URL = 'localhost:3001';
+const URL = 'http://www.uwclasswatch.com/';
 
 // Text to cipher
 function btoa(text) {
@@ -43,7 +44,7 @@ function decode(removalCode) {
 }
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -129,7 +130,7 @@ app.post('/watch', (req, res) => {
   });
 });
 
-app.delete('/remove', (req, res) => {
+app.delete('/remove/:removalCode', (req, res) => {
   const { removalCode } = req.params;
   const {
     courseCode, sectionNumber, email,
@@ -138,25 +139,38 @@ app.delete('/remove', (req, res) => {
     { course_code: courseCode },
     { $pull: { 'sections.$[section].emails': { email, removalCode } } },
     { arrayFilters: [{ 'section.section_number': sectionNumber }] },
-    (err, succ) => {
+    (err) => {
       if (err) console.log(err);
-      console.log(succ);
     },
   );
   res.sendStatus(200);
 });
 
+app.get('/verify/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/src/static/style.css'));
+});
+
+app.get('/verify/goose2.jpg', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/src/static/goose2.jpg'));
+});
+
 app.get('/verify/:hash', (req, res) => {
   UnverifiedCourses.findOne({ hash: req.params.hash }, (unverifiedFindErr, doc) => {
     // check if the course exists
-    if (!doc) return;
+    if (!doc || unverifiedFindErr) {
+      res.sendFile(path.join(__dirname, '../client/src/static/unverified.html'));
+      return;
+    }
     WatchedCourses.findOne({ course_code: doc.course_code },
       async (watchedCoursesFindErr, foundCourse) => {
       // if it doesn't exist, create new doc for that course
         await UnverifiedCourses.deleteOne(
           { hash: doc.hash },
           (err) => {
-            if (err) console.log(err);
+            if (err) {
+              res.sendFile(path.join(__dirname, '../client/src/static/unverified.html'));
+              throw err;
+            }
           },
         );
         if (!foundCourse) {
@@ -164,7 +178,10 @@ app.get('/verify/:hash', (req, res) => {
             WatchedCourses.create({
               course_code: doc.course_code,
             }, (err) => {
-              if (err) reject();
+              if (err) {
+                res.sendFile(path.join(__dirname, '../client/src/static/unverified.html'));
+                reject(err);
+              }
               resolve();
             });
           });
@@ -182,7 +199,10 @@ app.get('/verify/:hash', (req, res) => {
               { course_code: doc.course_code },
               { $addToSet: { sections: { section_number: doc.section_number, emails: [] } } },
               (err) => {
-                if (err) console.log(err);
+                if (err) {
+                  res.sendFile(path.join(__dirname, '../client/src/static/unverified.html'));
+                  throw err;
+                }
               },
             );
           }
@@ -192,13 +212,16 @@ app.get('/verify/:hash', (req, res) => {
             { $addToSet: { 'sections.$[section].emails': { email: doc.email, hash: doc.hash } } },
             { arrayFilters: [{ 'section.section_number': doc.section_number }] },
             (err) => {
-              if (err) console.log(err);
+              if (err) {
+                res.sendFile(path.join(__dirname, '../client/src/static/unverified.html'));
+                throw err;
+              }
             },
           );
+          res.sendFile(path.join(__dirname, '../client/src/static/verified.html'));
         });
       });
   });
-  res.sendStatus(200);
 });
 
 const sendNotificationEmail = (email, course, section, hash, enrolTotal, enrolCap) => {
@@ -251,4 +274,6 @@ cron.schedule('1,31 8-20 * * *', () => {
   timezone: 'America/New_York',
 });
 
+
 app.listen(port);
+app.use(express.static(path.join(__dirname, '../client/build')));
