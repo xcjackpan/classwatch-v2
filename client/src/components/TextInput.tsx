@@ -12,6 +12,7 @@ interface ITextInputProps {
   suffix?: string;
   onPressEnter?: any;
   onChange?: any;
+  value?: string;
 }
 
 export function TextInput (props: ITextInputProps): JSX.Element {

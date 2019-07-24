@@ -21,7 +21,7 @@ class ResultsTable extends Component<any, any> {
 
   private submit = () => {
     if (this.validEmail(this.state.email)) {
-      axios.post("http://localhost:3001/watch/", {
+      axios.post("/watch/", {
         course: this.props.results[0].courseCode,
         sections: this.state.checked,
         email: this.state.email,
@@ -34,7 +34,7 @@ class ResultsTable extends Component<any, any> {
   }
 
   private toggleSubmitDialog = () => {
-    this.setState({submitDialogVisible: !this.state.submitDialogVisible, email: ""});
+    this.setState({submitDialogVisible: !this.state.submitDialogVisible, emailError: false});
   }
   
   private validEmail(email: string): boolean {
@@ -112,6 +112,7 @@ class ResultsTable extends Component<any, any> {
           onChange={(e: string) => {this.setState({ email: e }); }}
           setEmailError={()=>{ this.setState({emailError: false}); }}
           emailError={this.state.emailError}
+          value={this.state.email}
         />
       </div>
     );

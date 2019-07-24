@@ -1,3 +1,4 @@
 node_modules
 server/mailgun_auth.js
 server/db/mongo_auth.js
+*.zip
