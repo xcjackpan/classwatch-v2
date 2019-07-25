@@ -11,7 +11,7 @@ class StopWatchingModal extends Component<any, any> {
         }}
         maskClosable={true}
         visible={this.props.visible}
-        title="Enter your removal code to stop watching a course"
+        title="What was the removal code for your course?"
         onOk={this.props.onOk}
         onCancel={this.props.onCancel}
         footer={[
@@ -29,7 +29,7 @@ class StopWatchingModal extends Component<any, any> {
                 width: "20vw",
                 minWidth: "180px"
               }}
-              placeholder="What was your removal code?"
+              placeholder="Check your email"
               size="default"
               onPressEnter={this.props.onOk}
               onChange={(e: any) => {

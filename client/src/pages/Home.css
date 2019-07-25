@@ -49,3 +49,21 @@
 .top-bar #stop-watching-button {
   margin-left: auto;
 }
+
+@media screen and (max-width: 800px) {
+  .home-page .title {
+    font-size: 70px;
+  }
+
+  .ant-modal-content {
+    position: absolute;
+    transform: translate(-50%, 50%);
+    top: 40%;
+    left: 50%;
+    width: 80vw;
+  }
+
+  .ant-btn-round {
+    font-size: 15px;
+  }
+}
