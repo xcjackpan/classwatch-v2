@@ -98,7 +98,7 @@
     font-size: 15px;
   }
 
-  #results-container .tr {
+  #results-container tr {
     font-size: 12px;
   }
 
@@ -122,12 +122,31 @@
     font-size: 12px;
   }
 
-  #results-container .tr {
+  #results-container tr {
     font-size: 12px;
   }
 
   .ant-checkbox {
     transform: scale(0.9);
     -webkit-transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #results-container #results-title #course-code {
+    font-size: 16px;
+  }
+
+  #results-container #results-title #course-title {
+    font-size: 10px;
+  }
+
+  #results-container tr {
+    font-size: 10px;
+  }
+
+  .ant-checkbox {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
   }
 }
