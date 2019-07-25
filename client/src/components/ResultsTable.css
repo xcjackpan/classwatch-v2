@@ -83,3 +83,51 @@
   padding: 5%;
   font-style: italic;
 }
+
+@media screen and (max-width: 800px) {
+  #results-container {
+    max-width: 95vw;
+    padding: 10px;
+  }
+
+  #results-container #results-title #course-code {
+    font-size: 25px;
+  }
+
+  #results-container #results-title #course-title {
+    font-size: 15px;
+  }
+
+  #results-container .tr {
+    font-size: 12px;
+  }
+
+  #results-container th, td {
+    padding: 2px 4px;
+  }
+
+  .ant-btn-round.ant-btn-lg {
+    padding: 4px 15px;
+    font-size: 15px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #results-container #results-title #course-code {
+    font-size: 20px;
+  }
+
+  #results-container #results-title #course-title {
+    font-size: 12px;
+  }
+
+  #results-container .tr {
+    font-size: 12px;
+  }
+
+  .ant-checkbox {
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+  }
+}

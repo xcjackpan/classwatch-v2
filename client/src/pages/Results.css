@@ -38,3 +38,18 @@
 .results-page .top-bar #stop-watching-button {
   margin-left: auto;
 }
+
+@media screen and (max-width: 800px) {
+  .results-page {
+    overflow: auto;
+    z-index: 1000;
+  }
+
+  .results-page .top-bar #stop-watching-button {
+    font-size: 15px;
+  }
+
+  .results-page .top-bar .search {
+    display: none;
+  }
+}

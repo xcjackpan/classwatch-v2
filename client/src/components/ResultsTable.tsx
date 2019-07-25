@@ -25,7 +25,7 @@ class ResultsTable extends Component<any, any> {
         course: this.props.results[0].courseCode,
         sections: this.state.checked,
         email: this.state.email,
-      }).then(() => {
+      }).then((res) => {
         this.toggleSubmitDialog();
         message.success('Verification email sent');
       });
