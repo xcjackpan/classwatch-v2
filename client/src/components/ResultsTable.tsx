@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import ResultsRow from "./ResultsRow";
 import "./ResultsTable.css";
 import { IParsedResults } from "../types";
@@ -27,6 +27,7 @@ class ResultsTable extends Component<any, any> {
         email: this.state.email,
       }).then(() => {
         this.toggleSubmitDialog();
+        message.success('Verification email sent');
       });
     } else {
       this.setState({emailError: true});

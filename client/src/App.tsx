@@ -4,7 +4,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import history from "./history";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 import HelpModal from "./components/HelpModal";
 import StopWatchingModal from "./components/StopWatchingModal";
 import "./App.css";
@@ -54,6 +54,11 @@ class App extends Component<any, any> {
       .delete(`/remove/${this.state.stopWatchingHash}`)
       .then(res => {
         this.toggleStopWatching();
+        if (res.status === 200) {
+          message.success('Course unwatched');
+        } else {
+          message.error('An error occurred');
+        }
       })
   }
 
