@@ -97,6 +97,7 @@ class ResultsTable extends Component<any, any> {
           size="large"
           shape="round"
           onClick={this.toggleSubmitDialog}
+          disabled={this.state.checked.length === 0}
         >
           Watch
         </Button>
