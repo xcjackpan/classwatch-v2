@@ -71,7 +71,7 @@ class ResultsTable extends Component<any, any> {
         <table>
           <thead>
             <tr>
-              <th style={{ textAlign: "center" }}>Watch</th>
+              {this.props.term === this.props.watchableTerm && <th style={{ textAlign: "center" }}>Watch</th>}
               <th>Section</th>
               <th>Instructor</th>
               <th>Days</th>
@@ -86,11 +86,12 @@ class ResultsTable extends Component<any, any> {
                 key={elem.section}
                 row={elem}
                 update={this.update}
+                watch={this.props.term === this.props.watchableTerm}
               />
             ))}
           </tbody>
         </table>
-        {this.props.results[0] ?
+        {this.props.results[0] && this.props.term === this.props.watchableTerm ?
         <Button
           id="watchButton"
           type="primary"

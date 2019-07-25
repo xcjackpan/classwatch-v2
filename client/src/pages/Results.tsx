@@ -115,6 +115,7 @@ class Results extends Component<any, any> {
         <ResultsTable
           results={this.parse_results(this.state.results)}
           term={this.props.match.params.term}
+          watchableTerm={this.props.terms[2]}
         />
       </div>
     );

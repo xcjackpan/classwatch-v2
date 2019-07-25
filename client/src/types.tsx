@@ -21,6 +21,7 @@ export interface IResultsProps {
 export interface IResultsTableProps {
   results: IParsedResults[];
   term: string;
+  watchableTerm: string;
 }
 
 export interface ISearchProps {

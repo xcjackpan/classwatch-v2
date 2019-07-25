@@ -7,6 +7,7 @@ class ResultsRow extends Component<any, any> {
     if (rowData.reserve && rowData.date) {
       return (
         <tr className="reserveRow">
+          {this.props.watch ? 
           <td className="checkbox-container">
             <Checkbox
               className="checkbox"
@@ -15,7 +16,7 @@ class ResultsRow extends Component<any, any> {
                 this.props.update(rowData.section, e.target.checked);
               }}
             />
-          </td>
+          </td> : null}
           <td className="reserveCell">{rowData.reserve}</td>
           <td>{rowData.instructor}</td>
           <td>
@@ -32,6 +33,7 @@ class ResultsRow extends Component<any, any> {
     } else if (rowData.reserve) {
       return (
         <tr className="reserveRow">
+          {this.props.watch ? 
           <td className="checkbox-container">
             <Checkbox
               className="checkbox"
@@ -40,7 +42,7 @@ class ResultsRow extends Component<any, any> {
                 this.props.update(rowData.section, e.target.checked);
               }}
             />
-          </td>
+          </td> : null}
           <td colSpan={5} className="reserveCell">
             {rowData.reserve}
           </td>
@@ -67,6 +69,7 @@ class ResultsRow extends Component<any, any> {
     } else {
       return (
         <tr>
+          {this.props.watch ? 
           <td className="checkbox-container">
             <Checkbox
               className="checkbox"
@@ -75,7 +78,7 @@ class ResultsRow extends Component<any, any> {
                 this.props.update(rowData.section, e.target.checked);
               }}
             />
-          </td>
+          </td> : null}
           <td>{rowData.section}</td>
           <td>{rowData.instructor}</td>
           <td>
