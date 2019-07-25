@@ -20,7 +20,7 @@ const mailgunOptions = {
 const mgtransport = mailgunTransport(mailgunOptions);
 const transporter = nodemailer.createTransport(mgtransport);
 
-const URL = 'http://www.uwclasswatch.com/';
+const URL = 'http://www.uwclasswatch.com';
 
 // Text to cipher
 function btoa(text) {
@@ -98,7 +98,7 @@ app.get('/search/:term/:subject/:courseNumber', (req, res) => {
 });
 
 function sendVerification(email, name, sections, hash) {
-  const link = `http://${URL}/verify/${hash}`;
+  const link = `${URL}/verify/${hash}`;
   const mailOptions = {
     from: 'postmaster@uwclasswatch.com',
     to: email,
@@ -125,9 +125,9 @@ app.post('/watch', (req, res) => {
   }));
   Promise.all(sections.map(section => sendVerification(email, course, section, btoa(`${course}|${section}|${email}`))));
   UnverifiedCourses.insertMany(unverified, (err) => {
-    if (err) res.sendStatus(500);
-    else res.sendStatus(201);
+    if (err) console.log(err);
   });
+  res.sendStatus(200);
 });
 
 app.delete('/remove/:removalCode', (req, res) => {
@@ -258,7 +258,7 @@ const checkCourses = async () => {
         if ((sectionInfo.reserve && sectionInfo.reserveEnrolTotal < sectionInfo.reserveEnrolCap)
         || (!sectionInfo.reserve && sectionInfo.enrolTotal < sectionInfo.enrolCap)) {
           section.emails.map(email => sendNotificationEmail(
-            email.email, course.subject, course.number, section.section_number, email.hash,
+            email.email, `${course.subject}${course.number}`, section.section_number, email.hash,
             sectionInfo.reserve ? sectionInfo.reserveEnrolTotal : sectionInfo.enrolTotal,
             sectionInfo.reseve ? sectionInfo.reserveEnrolCap : sectionInfo.enrolCap,
           ));
