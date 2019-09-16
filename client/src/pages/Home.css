@@ -57,7 +57,7 @@
 
   .ant-modal-content {
     position: absolute;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 0%);
     top: 40%;
     left: 50%;
     width: 80vw;
@@ -65,5 +65,21 @@
 
   .ant-btn-round {
     font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .home-page .title {
+    font-size: 50px;
+  }
+
+  .ant-btn-round {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .ant-modal-title {
+    width: 80% !important;
+    font-size: 14px !important;
   }
 }
