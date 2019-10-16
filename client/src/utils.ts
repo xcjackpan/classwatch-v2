@@ -15,3 +15,14 @@ export function parseTerm(term: string): string {
   year = term.substr(1, 2);
   return `${season} 20${year}`;
 }
+
+export function getSeason(term: string): string {
+  switch (term ? term.charAt(3) : "") {
+    case "1":
+      return "winter";
+    case "5":
+      return "spring";
+    default:
+      return "fall";
+  }
+}
