@@ -7,6 +7,7 @@ import Results from "./pages/Results";
 import { Modal, message } from "antd";
 import HelpModal from "./components/HelpModal";
 import StopWatchingModal from "./components/StopWatchingModal";
+import { getSeason } from "./utils";
 import "./App.css";
 
 class App extends Component<any, any> {
@@ -40,7 +41,6 @@ class App extends Component<any, any> {
       title: "Help!",
       content: <HelpModal />,
       width: "40vw",
-      onOk() {},
       maskClosable: true
     });
   };
@@ -62,29 +62,15 @@ class App extends Component<any, any> {
       })
   }
 
-  getSeason = (term: string) => {
-    switch (term ? term.charAt(3) : "") {
-      case "1":
-        return "winter";
-      case "5":
-        return "spring";
-      default:
-        return "fall";
-    }
-  }
-
  public render() {
     return (
-      <div className={`App ${this.getSeason(this.state.currTerm)}`}>
+      <div className={`App ${getSeason(this.state.currTerm)}`}>
         <StopWatchingModal
-          bodyStyle={{
-            width: "40vw",
-          }}
           maskClosable={true}
           visible={this.state.stopWatchingVisible}
           title="How should we notify you?"
           onOk={()=>{this.submitStopWatching()}}
-          onCancel={this.toggleStopWatching.bind(this)}
+          onCancel={this.toggleStopWatching}
           onChange={(e: any) => {
             this.setState({ stopWatchingHash: e });
           }}

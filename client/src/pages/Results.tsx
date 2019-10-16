@@ -32,6 +32,13 @@ class Results extends Component<any, any> {
       courseCode
     }: { term: number; courseCode: string } = props ? props.match.params : this.props.match.params;
     const { subject, courseNumber } = this.getCourse(courseCode);
+    if (!subject || !courseNumber) {
+      this.setState({
+        results: null,
+        course: courseCode,
+      });
+      return;
+    }
     axios
       .get(`/search/${term}/${subject}/${courseNumber}`)
       .then(res => {
@@ -65,6 +72,7 @@ class Results extends Component<any, any> {
       return newResults;
     }
     for (let i: number = 0; i < results.length; i++) {
+      // for classes with reserved spots, update number of unreserved spots
       if (!results[i].reserve && results[i + 1] && results[i + 1].reserve) {
         let reserve_enrol_total: number = 0;
         let reserve_enrol_cap: number = 0;
@@ -95,7 +103,6 @@ class Results extends Component<any, any> {
   };
 
   render() {
-    this.parse_results(this.state.results);
     return (
       <div className="results-page">
         <div className="top-bar">
