@@ -16,7 +16,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.5.14",
+    "mongoose": "^5.7.5",
     "node-cron": "^2.0.3",
     "nodemailer": "^6.3.0",
     "nodemailer-mailgun-transport": "^1.4.0",
