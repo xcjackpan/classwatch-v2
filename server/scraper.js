@@ -147,7 +147,7 @@ const parseData = async ($, term, subject, courseNumber) => {
 
 const scrapeData = async (term, subject, courseNumber) => {
   const headers = {
-    Origin: 'http://www.adm.uwaterloo.ca',
+    Origin: 'https://classes.uwaterloo.ca/',
     'Content-Type': 'application/x-www-form-urlencoded',
     Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
   };
@@ -158,7 +158,7 @@ const scrapeData = async (term, subject, courseNumber) => {
     cournum: courseNumber,
   };
   const body = await request.post({
-    url: 'http://www.adm.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl',
+    url: 'https://classes.uwaterloo.ca/cgi-bin/cgiwrap/infocour/salook.pl?',
     form,
     headers,
   });
